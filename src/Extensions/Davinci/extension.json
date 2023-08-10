@@ -1,0 +1,11 @@
+{
+	"name": "Davinci",
+	"display_name": "Davinci",
+	"description": "This extension allows you to load custom shaders into godot.",
+	"author": "Lsbt1",
+	"version": "0.1",
+	"license": "MIT",
+	"nodes": [
+		"Main.tscn"
+	]
+}
