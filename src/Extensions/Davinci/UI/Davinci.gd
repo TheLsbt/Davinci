@@ -141,9 +141,27 @@ func check_is_shader(path: String) -> void:
 
 func parse_params(params: Array) -> void:
 	clear_ui()
+	
+	var code := shader_mat.shader.code
+	code = code.c_unescape()
+	
+	var split = code.split("\n", false)
+	var first_line : String = split[0]
+	
+	first_line.replace(" ", "")
+	first_line.replace("/", "")
+#
+	var data = first_line.split(":")
+	var excluded = data[1].replace(" ", "").split(",", false)
+#
+##	print(params)
+	print(excluded)
 	for p in params:
 		var name = p.name
 		var type = p.type
+		
+		if excluded.has(name):
+			continue
 		
 		if name == "selection":
 			if p.hint != PROPERTY_HINT_RESOURCE_TYPE: # 19
@@ -159,7 +177,10 @@ func parse_params(params: Array) -> void:
 		match type:
 			TYPE_BOOL:
 				ui = preload("res://src/Extensions/Davinci/UI/Params/BoolParam.tscn").instance()
-		
+			TYPE_INT:
+				ui = preload("res://src/Extensions/Davinci/UI/Params/IntParam.tscn").instance()
+			TYPE_REAL: # Float
+				ui = preload("res://src/Extensions/Davinci/UI/Params/FloatParam.tscn").instance()
 		if ui == null:
 			return
 		

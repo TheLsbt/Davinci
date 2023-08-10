@@ -38,7 +38,8 @@ margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 rect_min_size = Vector2( 0, 250 )
-text = "// This shader is from Invert.shader (From Pixelorama)
+text = "// --davinci-ui-ignore: bool_vec
+// This shader is from Invert.shader (From Pixelorama)
 shader_type canvas_item;
 render_mode unshaded;
 
@@ -46,8 +47,11 @@ uniform bool red;
 uniform bool blue;
 uniform bool green;
 uniform bool alpha;
+uniform bvec2 bool_vec; //unsupported
 uniform sampler2D selection;
 
+// hint_range not supported
+uniform int whole_number;
 
 void fragment() {
 	// Get color from the sprite texture at the current pixel we are rendering
@@ -73,6 +77,8 @@ show_line_numbers = true
 fold_gutter = true
 smooth_scrolling = true
 script = ExtResource( 3 )
+pixelorama_reserved_color = Color( 0.607843, 0.337255, 0.654902, 1 )
+davinci_override_color = Color( 0.34902, 0.823529, 0.309804, 1 )
 
 [node name="ImagePreview" type="TextureRect" parent="MarginContainer/VBoxContainer/Previews"]
 unique_name_in_owner = true

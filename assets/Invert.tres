@@ -9,9 +9,15 @@ uniform bool blue;
 uniform bool green;
 uniform bool alpha;
 uniform sampler2D selection;
+uniform bvec2 poop;
+
+
+
+
 
 
 void fragment() {
+	vec2 s = 
 	// Get color from the sprite texture at the current pixel we are rendering
 	vec4 original_color = texture(TEXTURE, UV);
 	vec4 selection_color = texture(selection, UV);
