@@ -151,7 +151,7 @@ func parse_params(params: Array) -> void:
 	first_line.replace(" ", "")
 	first_line.replace("/", "")
 #
-	var data = first_line.split(":")
+	var data = first_line.split(":", false)
 	var excluded = data[1].replace(" ", "").split(",", false)
 #
 ##	print(params)
