@@ -3,7 +3,9 @@ name: Godot Pck Exporter
 on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
   push:
-    branches: [ "master" ]
+   # branches: [ "master" ]
+    tags:
+        - "v*"
 
   workflow_dispatch:
 
