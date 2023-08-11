@@ -85,6 +85,7 @@ smooth_scrolling = true
 script = ExtResource( 3 )
 pixelorama_reserved_color = Color( 0.607843, 0.337255, 0.654902, 1 )
 davinci_override_color = Color( 0.34902, 0.823529, 0.309804, 1 )
+comment_color = Color( 0.545098, 0.54902, 0.6, 1 )
 
 [node name="Docs" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Previews"]
 visible = false

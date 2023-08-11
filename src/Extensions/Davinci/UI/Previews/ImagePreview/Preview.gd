@@ -46,7 +46,6 @@ func update_transparent_checker_offset() -> void:
 	transparent_checker.update_offset(o, s)
 	
 
-
 # Can change when the preview texture changes
 func _about_to_show() -> void:
 	transparent_checker.update_rect()

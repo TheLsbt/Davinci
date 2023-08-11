@@ -33,6 +33,7 @@ var current_frame := Image.new()
 var affect := 0
 var shader_mat := ShaderMaterial.new()
 var cache := {}
+var overrides := {}
 
 var auto_update_shader
 
@@ -103,6 +104,7 @@ func update_shader_code(new_code: String) -> void:
 	
 	shader_mat.shader.code = new_code
 	
+	parse_overrides(shader_mat.shader.code)
 	var params = VisualServer.shader_get_param_list(shader_mat.shader.get_rid())
 	parse_params(params)
 	
@@ -157,28 +159,51 @@ func check_is_shader(path: String) -> void:
 	selection_checkbox.visible = cache.has("selection")
 
 
+func parse_overrides(text: String) -> void:
+	text = text.c_unescape()
+	overrides.clear()
+	
+	var lines = Array(text.split("\n", false))
+	
+	for line  in lines:
+		# Clean the line from spaces
+		line = line.c_escape()
+		for i in line.count(" "):
+			line.erase(line.find(" "), 1)
+		
+#		# Comment: Can check for a override
+		if line.begins_with("//"):
+#			# Cleaning the line before we process it.
+			line.erase(0, 2)
+			
+			if !line.begins_with("--"):
+				continue
+				
+			# Current does not support single ovverides mabey in future
+			if line.count(":") < 1:
+				continue
+			elif line.count(":") > 1:
+				continue
+				
+			var info = line.split(":", 1)
+			
+			var key = info[0]
+			var data = info[1]
+			
+			
+			if key == "--davinci-ui-ignore":
+				overrides[key] = Array(data.split(",", false))
+			else:
+				overrides[key] = data
+
 func parse_params(params: Array) -> void:
 	clear_ui()
-	
-	var code := shader_mat.shader.code
-	code = code.c_unescape()
-	
-	var split = code.split("\n", false)
-	var first_line : String = split[0]
-	
-	first_line.replace(" ", "")
-	first_line.replace("/", "")
-#
-	var data = first_line.split(":", false)
-	var excluded = data[1].replace(" ", "").split(",", false)
-#
-##	print(params)
-	print(excluded)
+	print(overrides)
 	for p in params:
 		var name = p.name
 		var type = p.type
 		
-		if excluded.has(name):
+		if overrides["--davinci-ui-ignore"].has(name):
 			continue
 		
 		if name == "selection":
