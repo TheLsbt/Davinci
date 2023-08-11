@@ -119,43 +119,43 @@ stretch_mode = 6
 [node name="ShaderTools" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 290.0
 margin_right = 619.0
-margin_bottom = 310.0
+margin_bottom = 314.0
 
 [node name="UpdateCode" type="Button" parent="MarginContainer/VBoxContainer/ShaderTools"]
+unique_name_in_owner = true
 margin_right = 105.0
-margin_bottom = 20.0
+margin_bottom = 24.0
 text = "Update shader"
 
 [node name="AutoUpdateCode" type="CheckBox" parent="MarginContainer/VBoxContainer/ShaderTools"]
-visible = false
 margin_left = 109.0
 margin_right = 263.0
 margin_bottom = 24.0
 text = "Auto-update shader"
 
 [node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/ShaderTools"]
-margin_left = 109.0
+margin_left = 267.0
 margin_right = 523.0
-margin_bottom = 20.0
+margin_bottom = 24.0
 size_flags_horizontal = 3
 
 [node name="Save" type="Button" parent="MarginContainer/VBoxContainer/ShaderTools"]
 margin_left = 527.0
 margin_right = 568.0
-margin_bottom = 20.0
+margin_bottom = 24.0
 text = "Save"
 
 [node name="Open" type="Button" parent="MarginContainer/VBoxContainer/ShaderTools"]
 margin_left = 572.0
 margin_right = 619.0
-margin_bottom = 20.0
+margin_bottom = 24.0
 text = "Open"
 
 [node name="Errors" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 314.0
+margin_top = 318.0
 margin_right = 619.0
-margin_bottom = 314.0
+margin_bottom = 318.0
 
 [node name="NoSelection" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Errors"]
 visible = false
@@ -198,7 +198,7 @@ text = "Uniform selection cannot accept textures (is not type Sampler2D)."
 fit_content_height = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 318.0
+margin_top = 322.0
 margin_right = 619.0
 margin_bottom = 472.0
 size_flags_horizontal = 3
@@ -207,7 +207,7 @@ size_flags_vertical = 3
 [node name="ParamsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 margin_right = 619.0
-margin_bottom = 154.0
+margin_bottom = 150.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -259,7 +259,9 @@ mode_overrides_title = false
 access = 1
 filters = PoolStringArray( "*.shader, *gdshader ; Godot Shader Files", "*.tres, *.res ; Godot Resource Files" )
 
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/Previews/ShaderPreview" to="." method="_on_shader_preview_text_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ShaderTools/UpdateCode" to="." method="_on_update_code_pressed"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/ShaderTools/AutoUpdateCode" to="." method="_on_auto_update_code_toggled"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ShaderTools/Save" to="." method="_on_save_file_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ShaderTools/Open" to="." method="_on_open_file_pressed"]
 [connection signal="file_selected" from="Dialogs/OpenShader" to="." method="_on_open_shader_file_selected"]

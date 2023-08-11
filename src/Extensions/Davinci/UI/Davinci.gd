@@ -19,6 +19,10 @@ onready var save_shader: FileDialog = $Dialogs/SaveShader
 onready var selection_checkbox: CheckBox = $"%SelectionCheckbox"
 onready var affected_options: OptionButton = $"%AffectedOptions"
 
+# Shader Tool Buttons
+onready var update_code_btn: Button = $"%UpdateCode"
+
+
 var preview_image := Image.new()
 var preview_texture := ImageTexture.new()
 var selected_cels := Image.new()
@@ -28,10 +32,14 @@ var affect := 0
 var shader_mat := ShaderMaterial.new()
 var cache := {}
 
+var auto_update_shader
+
 var commit_idx := -1  # the current frame, image effect is applied to
 var _preview_idx := 0  # the current frame, being previewed
 var confirmed := false
+
 var global
+
 
 
 func _enter_tree() -> void:
@@ -70,6 +78,14 @@ func _on_open_shader_file_selected(path: String) -> void:
 
 func _on_update_code_pressed() -> void:
 	update_shader_code(shader_preview.text)
+
+func _on_auto_update_code_toggled(toggled: bool) -> void:
+	update_code_btn.disabled = toggled
+	auto_update_shader = toggled
+
+func _on_shader_preview_text_changed() -> void:
+	if auto_update_shader:
+		update_shader_code(shader_preview.text)
 
 
 func update_shader_code(new_code: String) -> void:
