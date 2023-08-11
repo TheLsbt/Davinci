@@ -266,7 +266,7 @@ func update_image_preview() -> void:
 					i += 1
 				
 	var preview_texture = ImageTexture.new()
-	preview_texture.create_from_image(preview_image)
+	preview_texture.create_from_image(preview_image, 0)
 	image_preview.texture = preview_texture
 	
 	# Offset to center the image base off size.

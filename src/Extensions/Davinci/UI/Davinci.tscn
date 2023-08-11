@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/Extensions/Davinci/UI/Davinci.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://assets/FloatingDocs.png" type="Texture" id=4]
 [ext_resource path="res://src/Extensions/Davinci/Assets/godot/FiraCode-Shader-14.tres" type="DynamicFont" id=5]
 [ext_resource path="res://src/Extensions/Davinci/UI/Previews/ImagePreview/Preview.gd" type="Script" id=6]
+[ext_resource path="res://assets/ResetCameraPosition.png" type="Texture" id=7]
+[ext_resource path="res://src/Extensions/Davinci/UI/Nodes/TransparentChecker.tscn" type="PackedScene" id=8]
 
 [node name="Davinci" type="ConfirmationDialog"]
 visible = true
@@ -84,54 +86,6 @@ script = ExtResource( 3 )
 pixelorama_reserved_color = Color( 0.607843, 0.337255, 0.654902, 1 )
 davinci_override_color = Color( 0.34902, 0.823529, 0.309804, 1 )
 
-[node name="Preview" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Previews"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-rect_min_size = Vector2( 0, 250 )
-script = ExtResource( 6 )
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Previews/Preview"]
-margin_right = 611.0
-margin_bottom = 250.0
-size_flags_vertical = 3
-
-[node name="Zoom" type="VSlider" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer"]
-margin_right = 16.0
-margin_bottom = 250.0
-size_flags_vertical = 3
-min_value = 0.05
-max_value = 5.0
-value = 0.05
-
-[node name="ViewportContainer" type="ViewportContainer" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer"]
-margin_left = 20.0
-margin_right = 611.0
-margin_bottom = 250.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-stretch = true
-
-[node name="Viewport" type="Viewport" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/ViewportContainer"]
-size = Vector2( 591, 250 )
-handle_input_locally = false
-render_target_update_mode = 3
-
-[node name="ImagePreview" type="TextureRect" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/ViewportContainer/Viewport"]
-unique_name_in_owner = true
-margin_left = -32.0
-margin_top = -32.0
-margin_right = 32.0
-margin_bottom = 32.0
-texture = ExtResource( 2 )
-
-[node name="Camera" type="Camera2D" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/ViewportContainer/Viewport"]
-current = true
-zoom = Vector2( 0.5, 0.5 )
-
 [node name="Docs" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Previews"]
 visible = false
 anchor_right = 1.0
@@ -153,6 +107,109 @@ margin_right = 611.0
 margin_bottom = 98.0
 texture = ExtResource( 4 )
 stretch_mode = 6
+
+[node name="Preview" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Previews"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+rect_min_size = Vector2( 0, 250 )
+script = ExtResource( 6 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Previews/Preview"]
+margin_right = 611.0
+margin_bottom = 250.0
+size_flags_vertical = 3
+
+[node name="Controls" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer"]
+margin_right = 16.0
+margin_bottom = 250.0
+
+[node name="ZoomOutHint" type="Label" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/Controls"]
+margin_right = 16.0
+margin_bottom = 14.0
+text = "-"
+align = 1
+
+[node name="ZoomSlider" type="VSlider" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/Controls"]
+margin_top = 18.0
+margin_right = 16.0
+margin_bottom = 232.0
+size_flags_horizontal = 4
+size_flags_vertical = 3
+min_value = 0.1
+max_value = 5.0
+step = 0.001
+value = 0.1
+
+[node name="ZoomInHint" type="Label" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/Controls"]
+margin_top = 236.0
+margin_right = 16.0
+margin_bottom = 250.0
+text = "+"
+align = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer"]
+margin_left = 20.0
+margin_right = 611.0
+margin_bottom = 250.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ViewportContainer" type="ViewportContainer" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/MarginContainer"]
+margin_right = 591.0
+margin_bottom = 250.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="Viewport" type="Viewport" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/MarginContainer/ViewportContainer"]
+size = Vector2( 591, 250 )
+render_target_update_mode = 3
+
+[node name="Camera" type="Camera2D" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/MarginContainer/ViewportContainer/Viewport"]
+current = true
+zoom = Vector2( 0.1, 0.1 )
+
+[node name="TransparentChecker" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/MarginContainer/ViewportContainer/Viewport" instance=ExtResource( 8 )]
+mouse_filter = 2
+
+[node name="ImagePreview" type="TextureRect" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/MarginContainer/ViewportContainer/Viewport"]
+unique_name_in_owner = true
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+mouse_filter = 2
+texture = ExtResource( 2 )
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/MarginContainer"]
+margin_right = 591.0
+margin_bottom = 250.0
+mouse_filter = 2
+
+[node name="Reset" type="Button" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/MarginContainer/Control"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -33.0
+margin_top = -27.0
+margin_right = -5.0
+margin_bottom = -5.0
+icon = ExtResource( 7 )
+
+[node name="ZoomLabel" type="Label" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/MarginContainer/Control"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = -18.0
+margin_right = 45.0
+margin_bottom = -4.0
+text = "2% zoomed out"
 
 [node name="ShaderTools" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 290.0
@@ -298,7 +355,9 @@ access = 1
 filters = PoolStringArray( "*.shader, *gdshader ; Godot Shader Files", "*.tres, *.res ; Godot Resource Files" )
 
 [connection signal="text_changed" from="MarginContainer/VBoxContainer/Previews/ShaderPreview" to="." method="_on_shader_preview_text_changed"]
-[connection signal="value_changed" from="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/Zoom" to="MarginContainer/VBoxContainer/Previews/Preview" method="_on_zoom_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/Controls/ZoomSlider" to="MarginContainer/VBoxContainer/Previews/Preview" method="_on_ZoomSlider_value_changed"]
+[connection signal="gui_input" from="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/MarginContainer/ViewportContainer" to="MarginContainer/VBoxContainer/Previews/Preview" method="_on_viewport_container_gui_input_event"]
+[connection signal="item_rect_changed" from="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/MarginContainer/ViewportContainer/Viewport/ImagePreview" to="MarginContainer/VBoxContainer/Previews/Preview" method="_on_ImagePreview_item_rect_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ShaderTools/UpdateCode" to="." method="_on_update_code_pressed"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/ShaderTools/AutoUpdateCode" to="." method="_on_auto_update_code_toggled"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ShaderTools/Save" to="." method="_on_save_file_pressed"]

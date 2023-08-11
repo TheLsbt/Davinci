@@ -12,8 +12,9 @@ func _enter_tree() -> void:
 
 	if global:
 		davinci = DAVINCI_SCENE.instance()
+		global.control.get_node("Dialogs").call_deferred("add_child", davinci)
+		
 		item_idx = ExtensionsApi.menu.add_menu_item(ExtensionsApi.menu.IMAGE, "Davinci Shader Editor", davinci)
-		global.control.get_node("Dialogs").add_child(davinci)
 
 
 func _exit_tree() -> void:
