@@ -10,7 +10,6 @@
 [ext_resource path="res://src/Extensions/Davinci/UI/Nodes/TransparentChecker.tscn" type="PackedScene" id=8]
 
 [node name="Davinci" type="ConfirmationDialog"]
-visible = true
 margin_right = 635.0
 margin_bottom = 544.0
 rect_min_size = Vector2( 220, 128 )
@@ -35,7 +34,6 @@ margin_bottom = 286.0
 
 [node name="ShaderPreview" type="TextEdit" parent="MarginContainer/VBoxContainer/Previews"]
 unique_name_in_owner = true
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -43,6 +41,9 @@ margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 rect_min_size = Vector2( 0, 250 )
+custom_colors/member_variable_color = Color( 0.635294, 0.85098, 0.862745, 1 )
+custom_colors/function_color = Color( 0.968627, 0.368627, 0.368627, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = ExtResource( 5 )
 text = "// --davinci-ui-ignore: bool_vec
 // This shader is from Invert.shader (From Pixelorama)
@@ -83,9 +84,14 @@ show_line_numbers = true
 fold_gutter = true
 smooth_scrolling = true
 script = ExtResource( 3 )
-pixelorama_reserved_color = Color( 0.607843, 0.337255, 0.654902, 1 )
+pixelorama_reserved_color = Color( 0.588235, 0.192157, 0.654902, 1 )
 davinci_override_color = Color( 0.34902, 0.823529, 0.309804, 1 )
 comment_color = Color( 0.545098, 0.54902, 0.6, 1 )
+types_color = Color( 0.968627, 0.368627, 0.368627, 1 )
+flow_control_color = Color( 0.996078, 0.529412, 1, 1 )
+member_color = Color( 0.635294, 0.85098, 0.862745, 1 )
+constant_color = Color( 0.580392, 0.847059, 0.564706, 1 )
+function_color = Color( 0.968627, 0.368627, 0.368627, 1 )
 
 [node name="Docs" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Previews"]
 visible = false
@@ -110,6 +116,7 @@ texture = ExtResource( 4 )
 stretch_mode = 6
 
 [node name="Preview" type="MarginContainer" parent="MarginContainer/VBoxContainer/Previews"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -132,7 +139,7 @@ stretch = true
 [node name="Viewport" type="Viewport" parent="MarginContainer/VBoxContainer/Previews/Preview/ViewportContainer"]
 size = Vector2( 611, 250 )
 handle_input_locally = false
-render_target_update_mode = 3
+render_target_update_mode = 0
 
 [node name="Camera" type="Camera2D" parent="MarginContainer/VBoxContainer/Previews/Preview/ViewportContainer/Viewport"]
 current = true
