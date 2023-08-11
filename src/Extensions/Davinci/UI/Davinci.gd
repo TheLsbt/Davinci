@@ -163,6 +163,8 @@ func parse_overrides(text: String) -> void:
 	text = text.c_unescape()
 	overrides.clear()
 	
+	overrides["--davinci-ui-ignore"] = []
+	
 	var lines = Array(text.split("\n", false))
 	
 	for line  in lines:
