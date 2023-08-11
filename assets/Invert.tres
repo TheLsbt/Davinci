@@ -12,12 +12,13 @@ uniform sampler2D selection;
 uniform bvec2 poop;
 
 
-
+uniform vec2 vector2;
+uniform vec3 vector3;
+uniform vec4 vector4;
 
 
 
 void fragment() {
-	vec2 s = 
 	// Get color from the sprite texture at the current pixel we are rendering
 	vec4 original_color = texture(TEXTURE, UV);
 	vec4 selection_color = texture(selection, UV);
