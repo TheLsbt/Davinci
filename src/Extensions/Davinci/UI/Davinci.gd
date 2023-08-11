@@ -4,6 +4,8 @@ enum { SELECTED_CELS, FRAME, ALL_FRAMES, ALL_PROJECTS }
 
 const VaildExtensions = ["shader", "gdshader", "tres", "res"]
 
+signal preview_image_changed()
+
 onready var shader_preview: TextEdit = $"%ShaderPreview"
 onready var image_preview: TextureRect = $"%ImagePreview"
 onready var params_container: VBoxContainer = $"%ParamsContainer"
@@ -271,6 +273,8 @@ func update_image_preview() -> void:
 	
 	# Offset to center the image base off size.
 	image_preview.rect_position = -preview_image.get_size() / 2
+	
+	emit_signal("preview_image_changed")
 
 
 func update_davinci() -> void:

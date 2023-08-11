@@ -108,7 +108,7 @@ margin_bottom = 98.0
 texture = ExtResource( 4 )
 stretch_mode = 6
 
-[node name="Preview" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Previews"]
+[node name="Preview" type="MarginContainer" parent="MarginContainer/VBoxContainer/Previews"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -116,68 +116,31 @@ margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 rect_min_size = Vector2( 0, 250 )
-script = ExtResource( 6 )
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Previews/Preview"]
-margin_right = 611.0
-margin_bottom = 250.0
-size_flags_vertical = 3
-
-[node name="Controls" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer"]
-margin_right = 16.0
-margin_bottom = 250.0
-
-[node name="ZoomOutHint" type="Label" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/Controls"]
-margin_right = 16.0
-margin_bottom = 14.0
-text = "-"
-align = 1
-
-[node name="ZoomSlider" type="VSlider" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/Controls"]
-margin_top = 18.0
-margin_right = 16.0
-margin_bottom = 232.0
-size_flags_horizontal = 4
-size_flags_vertical = 3
-min_value = 0.1
-max_value = 5.0
-step = 0.001
-value = 0.1
-
-[node name="ZoomInHint" type="Label" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/Controls"]
-margin_top = 236.0
-margin_right = 16.0
-margin_bottom = 250.0
-text = "+"
-align = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer"]
-margin_left = 20.0
-margin_right = 611.0
-margin_bottom = 250.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource( 6 )
 
-[node name="ViewportContainer" type="ViewportContainer" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/MarginContainer"]
-margin_right = 591.0
+[node name="ViewportContainer" type="ViewportContainer" parent="MarginContainer/VBoxContainer/Previews/Preview"]
+margin_right = 611.0
 margin_bottom = 250.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 stretch = true
 
-[node name="Viewport" type="Viewport" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/MarginContainer/ViewportContainer"]
-size = Vector2( 591, 250 )
+[node name="Viewport" type="Viewport" parent="MarginContainer/VBoxContainer/Previews/Preview/ViewportContainer"]
+size = Vector2( 611, 250 )
+handle_input_locally = false
 render_target_update_mode = 3
 
-[node name="Camera" type="Camera2D" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/MarginContainer/ViewportContainer/Viewport"]
+[node name="Camera" type="Camera2D" parent="MarginContainer/VBoxContainer/Previews/Preview/ViewportContainer/Viewport"]
 current = true
 zoom = Vector2( 0.1, 0.1 )
 
-[node name="TransparentChecker" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/MarginContainer/ViewportContainer/Viewport" instance=ExtResource( 8 )]
+[node name="TransparentChecker" parent="MarginContainer/VBoxContainer/Previews/Preview/ViewportContainer/Viewport" instance=ExtResource( 8 )]
 mouse_filter = 2
 
-[node name="ImagePreview" type="TextureRect" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/MarginContainer/ViewportContainer/Viewport"]
+[node name="ImagePreview" type="TextureRect" parent="MarginContainer/VBoxContainer/Previews/Preview/ViewportContainer/Viewport"]
 unique_name_in_owner = true
 margin_left = -32.0
 margin_top = -32.0
@@ -186,12 +149,12 @@ margin_bottom = 32.0
 mouse_filter = 2
 texture = ExtResource( 2 )
 
-[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/MarginContainer"]
-margin_right = 591.0
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/Previews/Preview"]
+margin_right = 611.0
 margin_bottom = 250.0
 mouse_filter = 2
 
-[node name="Reset" type="Button" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/MarginContainer/Control"]
+[node name="ResetOffset" type="Button" parent="MarginContainer/VBoxContainer/Previews/Preview/Control"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -202,7 +165,7 @@ margin_right = -5.0
 margin_bottom = -5.0
 icon = ExtResource( 7 )
 
-[node name="ZoomLabel" type="Label" parent="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/MarginContainer/Control"]
+[node name="ZoomLabel" type="Label" parent="MarginContainer/VBoxContainer/Previews/Preview/Control"]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
@@ -354,10 +317,10 @@ mode_overrides_title = false
 access = 1
 filters = PoolStringArray( "*.shader, *gdshader ; Godot Shader Files", "*.tres, *.res ; Godot Resource Files" )
 
+[connection signal="about_to_show" from="." to="MarginContainer/VBoxContainer/Previews/Preview" method="_about_to_show"]
 [connection signal="text_changed" from="MarginContainer/VBoxContainer/Previews/ShaderPreview" to="." method="_on_shader_preview_text_changed"]
-[connection signal="value_changed" from="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/Controls/ZoomSlider" to="MarginContainer/VBoxContainer/Previews/Preview" method="_on_ZoomSlider_value_changed"]
-[connection signal="gui_input" from="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/MarginContainer/ViewportContainer" to="MarginContainer/VBoxContainer/Previews/Preview" method="_on_viewport_container_gui_input_event"]
-[connection signal="item_rect_changed" from="MarginContainer/VBoxContainer/Previews/Preview/HBoxContainer/MarginContainer/ViewportContainer/Viewport/ImagePreview" to="MarginContainer/VBoxContainer/Previews/Preview" method="_on_ImagePreview_item_rect_changed"]
+[connection signal="gui_input" from="MarginContainer/VBoxContainer/Previews/Preview/ViewportContainer" to="MarginContainer/VBoxContainer/Previews/Preview" method="_on_viewport_container_gui_input_event"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Previews/Preview/Control/ResetOffset" to="MarginContainer/VBoxContainer/Previews/Preview" method="_on_reset_camera_offset_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ShaderTools/UpdateCode" to="." method="_on_update_code_pressed"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/ShaderTools/AutoUpdateCode" to="." method="_on_auto_update_code_toggled"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ShaderTools/Save" to="." method="_on_save_file_pressed"]
